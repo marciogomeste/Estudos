@@ -208,7 +208,7 @@
 <body>
 
     <header>
-        <h1>Painel de Estudos - MPMG</h1>
+        <h1>Painel de Estudos </h1>
         <p>Acompanhamento offline do edital do Ministério Público de Minas Gerais</p>
     </header>
 
@@ -355,7 +355,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "backup_estudos_mpmg.json");
+            downloadAnchor.setAttribute("download", "backup_estudos.json");
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
