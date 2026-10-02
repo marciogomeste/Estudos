@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema offline de estudos para o MPMG">
-    <title>Sistema de Estudos - MPMG</title>
+    <meta name="description" content="Sistema Offline de Estudos MPMG">
+    <title>Meu caminho ATÉ O MPMG</title>
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-hover: #1e40af;
-            --bg: #f8fafc;
+            --bg-page: #f6f5fa;
+            --sidebar-bg: #ffffff;
             --card-bg: #ffffff;
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --success: #16a34a;
-            --warning: #ca8a04;
-            --danger: #dc2626;
+            --primary: #7c3aed;
+            --primary-light: #f3e8ff;
+            --primary-border: #ddd6fe;
+            --text-title: #1e1b4b;
+            --text-body: #475569;
+            --text-muted: #94a3b8;
+            --border-color: #f1f0f7;
+            --green: #16a34a;
+            --green-bg: #dcfce7;
+            --orange: #d97706;
+            --orange-bg: #fef3c7;
+            --blue: #2563eb;
+            --blue-bg: #dbeafe;
         }
 
         * {
@@ -27,362 +33,848 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 16px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .controls {
+            background-color: var(--bg-page);
+            color: var(--text-body);
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: var(--card-bg);
-            padding: 16px;
+            min-height: 100vh;
+        }
+
+        /* Layout Principal */
+        .app-container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar Esquerda */
+        aside.sidebar {
+            width: 270px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .brand-text h2 {
+            font-size: 1.1rem;
+            color: var(--text-title);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .brand-text span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .career-card {
+            background: #faf9fd;
+            border: 1px dashed var(--primary-border);
             border-radius: 12px;
-            border: 1px solid var(--border);
+            padding: 12px 14px;
+            margin-bottom: 24px;
+        }
+
+        .career-card label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .career-card strong {
+            font-size: 0.9rem;
+            color: var(--text-title);
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-body);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .user-info h4 {
+            font-size: 0.85rem;
+            color: var(--text-title);
+        }
+
+        .user-info p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        /* Conteúdo Principal */
+        main.main-content {
+            flex-grow: 1;
+            padding: 28px 36px;
+            overflow-y: auto;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .badge-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .hero-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .hero-title h1 {
+            font-size: 1.8rem;
+            color: var(--text-title);
+            margin: 4px 0;
+            font-weight: 800;
+        }
+
+        .hero-title p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
         }
 
         .btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 10px 18px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: background 0.2s;
+            gap: 8px;
+            transition: opacity 0.2s;
         }
 
         .btn:hover {
-            background-color: var(--primary-hover);
+            opacity: 0.9;
         }
 
         .btn-outline {
-            background-color: transparent;
+            background: transparent;
             color: var(--primary);
-            border: 1px solid var(--primary);
+            border: 1px solid var(--primary-border);
         }
 
         .btn-outline:hover {
-            background-color: #eff6ff;
+            background: var(--primary-light);
         }
 
-        .btn-danger {
-            background-color: var(--danger);
+        /* Notice Banner */
+        .notice-card {
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            border-radius: 14px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 0.88rem;
+            color: #5b21b6;
         }
 
-        .btn-danger:hover {
-            background-color: #b91c1c;
+        .notice-actions {
+            display: flex;
+            gap: 8px;
         }
 
-        /* Esconde o input file original */
-        input[type="file"] {
-            display: none;
-        }
-
-        .dashboard {
+        /* Grid de Cards de Estatísticas (Dash) */
+        .dash-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            text-align: center;
+            border-radius: 16px;
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         }
 
-        .stat-card h3 {
-            font-size: 0.85rem;
+        .stat-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .icon-purple { background: var(--primary-light); color: var(--primary); }
+        .icon-green { background: var(--green-bg); color: var(--green); }
+        .icon-orange { background: var(--orange-bg); color: var(--orange); }
+        .icon-blue { background: var(--blue-bg); color: var(--blue); }
+
+        .stat-info label {
+            font-size: 0.78rem;
             color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 6px;
+            display: block;
+            margin-bottom: 2px;
         }
 
-        .stat-card .value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary);
+        .stat-info .value-group {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
         }
 
-        .add-form {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
+        .stat-info .value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-title);
+        }
+
+        .stat-info .subtext {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Layout em 2 Colunas para o Quadro de Estudos e Plano do Dia */
+        .content-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
-            gap: 10px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
         }
 
-        @media (max-width: 640px) {
-            .add-form {
-                grid-template-columns: 1fr;
-            }
+        .card-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-header-sm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .card-header-sm span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .card-header-sm h3 {
+            font-size: 1.1rem;
+            color: var(--text-title);
+            font-weight: 700;
+        }
+
+        /* Form e Lista de Tarefas */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         input, select {
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.9rem;
             width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #fafafa;
+            font-size: 0.88rem;
+            color: var(--text-title);
+            outline: none;
         }
 
-        .table-container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 12px 0 16px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #faf9fd;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            font-size: 0.88rem;
+        }
+
+        .task-item.done span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .task-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .task-checkbox input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .table-responsive {
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 0.85rem;
             text-align: left;
-            font-size: 0.9rem;
         }
 
         th, td {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         th {
-            background-color: #f1f5f9;
             color: var(--text-muted);
             font-weight: 600;
+            background: #fafaee;
         }
 
-        .badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
+        input[type="file"] {
+            display: none;
         }
 
-        .badge-pendente { background: #fef3c7; color: var(--warning); }
-        .badge-estudando { background: #dbeafe; color: var(--primary); }
-        .badge-concluido { background: #dcfce7; color: var(--success); }
-
-        .action-btn {
-            background: none;
-            border: none;
-            color: var(--danger);
-            cursor: pointer;
-            font-weight: bold;
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .app-container {
+                flex-direction: column;
+            }
+            aside.sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            main.main-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Painel de Estudos - MPMG</h1>
-        <p>Acompanhamento offline do edital do Ministério Público de Minas Gerais</p>
-    </header>
+    <div class="app-container">
+        <!-- Sidebar Esquerda -->
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-icon">📖</div>
+                    <div class="brand-text">
+                        <h2>Meu caminho</h2>
+                        <span>ATÉ O MPMG</span>
+                    </div>
+                </div>
 
-    <div class="controls">
-        <button class="btn" onclick="exportData()">💾 Salvar Backup (JSON)</button>
-        <label for="importFile" class="btn btn-outline">📂 Importar Backup (JSON)</label>
-        <input type="file" id="importFile" accept=".json" onchange="importData(event)">
-        <button class="btn btn-danger" style="margin-left: auto;" onclick="clearAllData()">🗑️ Limpar Tudo</button>
-    </div>
+                <div class="career-card">
+                    <label>Objetivo de carreira</label>
+                    <strong id="careerDisplay">Promotora de Justiça</strong>
+                </div>
 
-    <div class="dashboard">
-        <div class="stat-card">
-            <h3>Total de Tópicos</h3>
-            <div class="value" id="statTotal">0</div>
-        </div>
-        <div class="stat-card">
-            <h3>Concluídos</h3>
-            <div class="value" id="statConcluidos" style="color: var(--success);">0</div>
-        </div>
-        <div class="stat-card">
-            <h3>Progresso Geral</h3>
-            <div class="value" id="statProgresso">0%</div>
-        </div>
-    </div>
+                <div class="nav-section-title">MEU ESPAÇO</div>
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item active">🗓️ Planejamento</li>
+                        <li class="nav-item">📚 Matérias e tópicos</li>
+                        <li class="nav-item">📊 Meu progresso</li>
+                        <li class="nav-item">📝 Caderno de apoio</li>
+                    </ul>
+                </nav>
+            </div>
 
-    <form class="add-form" id="studyForm" onsubmit="addTopic(event)">
-        <input type="text" id="materiaInput" placeholder="Matéria / Tópico (ex: Direito Constitucional)" required>
-        <select id="statusSelect">
-            <option value="Pendente">Pendente</option>
-            <option value="Em Estudo">Em Estudo</option>
-            <option value="Concluído">Concluído</option>
-        </select>
-        <input type="number" id="horasInput" placeholder="Horas Dedicadas" min="0" step="0.5" value="0">
-        <button type="submit" class="btn">Adicionar</button>
-    </form>
+            <div class="user-profile">
+                <div class="avatar" id="avatarInitials">MP</div>
+                <div class="user-info">
+                    <h4 id="userNameDisplay">Estudante MPMG</h4>
+                    <p>Constância, um dia de cada vez</p>
+                </div>
+            </div>
+        </aside>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Matéria / Tópico</th>
-                    <th>Status</th>
-                    <th>Horas</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="topicsTableBody">
-                <!-- Tópicos inseridos via JavaScript -->
-            </tbody>
-        </table>
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <div class="top-header">
+                <div>Meu espaço de estudos / <strong>Planejamento</strong></div>
+                <div class="badge-tag">🎓 Membro do MPMG</div>
+            </div>
+
+            <div class="hero-banner">
+                <div class="hero-title">
+                    <span>UM PLANO. UM DIA. UM PASSO.</span>
+                    <h1>Seu estudo tem um lugar.</h1>
+                    <p>Planeje, registre e acompanhe seu caminho até o MPMG.</p>
+                </div>
+                <button class="btn" onclick="exportData()">💾 Salvar meu dia</button>
+            </div>
+
+            <!-- Notice / Quick Actions -->
+            <div class="notice-card">
+                <div>
+                    📌 <strong>Sistema Offline de Estudos:</strong> Seus registros ficam salvos localmente no navegador do seu dispositivo.
+                </div>
+                <div class="notice-actions">
+                    <label for="importFileInput" class="btn btn-outline" style="cursor: pointer;">📂 Importar</label>
+                    <input type="file" id="importFileInput" accept=".json" onchange="importData(event)">
+                    <button class="btn btn-outline" onclick="exportData()">💾 Exportar Backup</button>
+                </div>
+            </div>
+
+            <!-- Dashboards (4 Cards de Métricas) -->
+            <div class="dash-grid">
+                <!-- Card 1: Questões -->
+                <div class="stat-card">
+                    <div class="stat-icon icon-purple">🎯</div>
+                    <div class="stat-info">
+                        <label>Questões no mês</label>
+                        <div class="value-group">
+                            <span class="value" id="dashQuestions">0</span>
+                            <span class="subtext">resolvidas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Aproveitamento -->
+                <div class="stat-card">
+                    <div class="stat-icon icon-green">✅</div>
+                    <div class="stat-info">
+                        <label>Seu aproveitamento</label>
+                        <div class="value-group">
+                            <span class="value" id="dashAccuracy">0%</span>
+                            <span class="subtext" id="dashHits">0 acertos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Tempo -->
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange">⏱️</div>
+                    <div class="stat-info">
+                        <label>Tempo registrado</label>
+                        <div class="value-group">
+                            <span class="value" id="dashTime">0h 0m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Tópicos -->
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue">📋</div>
+                    <div class="stat-info">
+                        <label>Tópicos estudados</label>
+                        <div class="value-group">
+                            <span class="value" id="dashTopics">0</span>
+                            <span class="subtext">de 100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo de Execução e Registro -->
+            <div class="content-grid">
+                <!-- Lado Esquerdo: Registrar Questões e Tempo -->
+                <div class="card-box">
+                    <div class="card-header-sm">
+                        <span>REGISTRO RÁPIDO DE QUESTÕES</span>
+                        <h3>Lançar estudo do dia</h3>
+                    </div>
+
+                    <form onsubmit="handleAddSession(event)">
+                        <div class="form-row">
+                            <input type="text" id="inputSubject" placeholder="Matéria (ex: Dir. Penal)" required>
+                            <input type="number" id="inputQuestions" placeholder="Questões resolvidas" min="1" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="number" id="inputHits" placeholder="Acertos" min="0" required>
+                            <input type="number" id="inputMinutes" placeholder="Tempo (minutos)" min="1" required>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 6px;">
+                            ➕ Registrar Sessão
+                        </button>
+                    </form>
+
+                    <div style="margin-top: 20px;">
+                        <span style="font-size: 0.72rem; font-weight:700; color:var(--text-muted);">HISTÓRICO RECENTE</span>
+                        <div class="table-responsive" style="margin-top: 8px;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Matéria</th>
+                                        <th>Qtd</th>
+                                        <th>Acertos</th>
+                                        <th>Tempo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody">
+                                    <!-- Renderizado via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lado Direito: Plano do Dia (Checklist) -->
+                <div class="card-box">
+                    <div class="card-header-sm">
+                        <span id="currentDateText">PLANO DO DIA</span>
+                        <h3>Meu plano do dia</h3>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--primary);">
+                        <span>Progresso do dia</span>
+                        <span id="dailyProgressText">0/0 concluídos</span>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="dailyProgressBar"></div>
+                    </div>
+
+                    <ul class="task-list" id="taskList">
+                        <!-- Tarefas renderizadas via JS -->
+                    </ul>
+
+                    <form onsubmit="handleAddTask(event)" style="display: flex; gap: 8px; margin-top: 14px;">
+                        <input type="text" id="inputNewTask" placeholder="Nova tarefa do dia..." required>
+                        <button type="submit" class="btn btn-outline" style="padding: 8px 14px;">+ Adicionar</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
     </div>
 
     <script>
-        const STORAGE_KEY = 'mpmg_estudos_data';
+        const STORAGE_KEY = 'mpmg_purple_study_app_data';
 
-        // Dados Iniciais Padrão (caso esteja vazio)
-        const initialData = [
-            { id: 1, materia: "Direito Constitucional - Teoria Geral", status: "Concluído", horas: 4 },
-            { id: 2, materia: "Legislação Institucional - MPMG", status: "Em Estudo", horas: 2 },
-            { id: 3, materia: "Direito Administrativo - Licitações", status: "Pendente", horas: 0 }
-        ];
+        // Dados padrão iniciais
+        const defaultData = {
+            careerGoal: "Promotora de Justiça",
+            userName: "Estudante MPMG",
+            totalTopicsTarget: 100,
+            topicsCompleted: 0,
+            sessions: [
+                { id: 1, subject: "Direito Constitucional", questions: 25, hits: 20, minutes: 45 },
+                { id: 2, subject: "Legislação do MPMG", questions: 15, hits: 10, minutes: 35 }
+            ],
+            tasks: [
+                { id: 1, text: "Aula presencial / videoaula do dia", done: true },
+                { id: 2, text: "Resolução de 30 questões da banca", done: true },
+                { id: 3, text: "Revisão de Informativos STF/STJ", done: false },
+                { id: 4, text: "Leitura da Lei Seca (Constitucional)", done: false }
+            ]
+        };
 
-        function getStoredData() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : initialData;
+        function loadData() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : defaultData;
         }
 
-        function saveStoredData(data) {
+        function saveData(data) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            render();
+            renderApp();
         }
 
-        function render() {
-            const data = getStoredData();
-            const tbody = document.getElementById('topicsTableBody');
-            tbody.innerHTML = '';
+        function renderApp() {
+            const data = loadData();
 
-            let concluidos = 0;
+            // 1. Atualizar Header e Usuário
+            document.getElementById('careerDisplay').innerText = data.careerGoal;
+            document.getElementById('userNameDisplay').innerText = data.userName;
+            
+            // Iniciais do Avatar
+            const initials = data.userName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('avatarInitials').innerText = initials || "MP";
 
-            data.forEach(item => {
-                if (item.status === 'Concluído') concluidos++;
+            // Data Atual Formatada
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            const todayStr = new Date().toLocaleDateString('pt-BR', options);
+            document.getElementById('currentDateText').innerText = todayStr.toUpperCase();
 
-                let badgeClass = 'badge-pendente';
-                if (item.status === 'Em Estudo') badgeClass = 'badge-estudando';
-                if (item.status === 'Concluído') badgeClass = 'badge-concluido';
+            // 2. Calcular Dashboards
+            let totalQuestions = 0;
+            let totalHits = 0;
+            let totalMinutes = 0;
 
+            data.sessions.forEach(s => {
+                totalQuestions += Number(s.questions);
+                totalHits += Number(s.hits);
+                totalMinutes += Number(s.minutes);
+            });
+
+            const accuracy = totalQuestions > 0 ? Math.round((totalHits / totalQuestions) * 100) : 0;
+            const hours = Math.floor(totalMinutes / 60);
+            const mins = totalMinutes % 60;
+
+            document.getElementById('dashQuestions').innerText = totalQuestions;
+            document.getElementById('dashAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('dashHits').innerText = `${totalHits} acertos`;
+            document.getElementById('dashTime').innerText = `${hours}h ${mins}m`;
+            document.getElementById('dashTopics').innerText = data.sessions.length;
+
+            // 3. Renderizar Histórico
+            const historyTbody = document.getElementById('historyTableBody');
+            historyTbody.innerHTML = '';
+            data.sessions.slice(-5).reverse().forEach(s => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><strong>${escapeHtml(item.materia)}</strong></td>
-                    <td><span class="badge ${badgeClass}">${item.status}</span></td>
-                    <td>${item.horas} h</td>
-                    <td>
-                        <button class="action-btn" onclick="deleteTopic(${item.id})">Excluir</button>
-                    </td>
+                    <td><strong>${escapeHtml(s.subject)}</strong></td>
+                    <td>${s.questions}</td>
+                    <td>${s.hits}</td>
+                    <td>${s.minutes}m</td>
                 `;
-                tbody.appendChild(tr);
+                historyTbody.appendChild(tr);
             });
 
-            // Atualiza Estatísticas
-            const total = data.length;
-            const progresso = total > 0 ? Math.round((concluidos / total) * 100) : 0;
+            // 4. Renderizar Lista de Tarefas (Plano do Dia)
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            let completedTasks = 0;
 
-            document.getElementById('statTotal').innerText = total;
-            document.getElementById('statConcluidos').innerText = concluidos;
-            document.getElementById('statProgresso').innerText = `${progresso}%`;
+            data.tasks.forEach(t => {
+                if (t.done) completedTasks++;
+                const li = document.createElement('li');
+                li.className = `task-item ${t.done ? 'done' : ''}`;
+                li.innerHTML = `
+                    <label class="task-checkbox">
+                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})">
+                        <span>${escapeHtml(t.text)}</span>
+                    </label>
+                    <button style="background:none; border:none; color:var(--text-muted); cursor:pointer;" onclick="deleteTask(${t.id})">✕</button>
+                `;
+                taskList.appendChild(li);
+            });
+
+            // Progresso do Dia
+            const taskCount = data.tasks.length;
+            const taskPercent = taskCount > 0 ? Math.round((completedTasks / taskCount) * 100) : 0;
+            document.getElementById('dailyProgressText').innerText = `${completedTasks}/${taskCount} concluídos`;
+            document.getElementById('dailyProgressBar').style.width = `${taskPercent}%`;
         }
 
-        function addTopic(e) {
+        // Adicionar Nova Sessão de Questões
+        function handleAddSession(e) {
             e.preventDefault();
-            const materia = document.getElementById('materiaInput').value.trim();
-            const status = document.getElementById('statusSelect').value;
-            const horas = parseFloat(document.getElementById('horasInput').value) || 0;
+            const subject = document.getElementById('inputSubject').value.trim();
+            const questions = parseInt(document.getElementById('inputQuestions').value);
+            const hits = parseInt(document.getElementById('inputHits').value);
+            const minutes = parseInt(document.getElementById('inputMinutes').value);
 
-            if (!materia) return;
+            if (hits > questions) {
+                alert("O número de acertos não pode ser maior que o número de questões!");
+                return;
+            }
 
-            const data = getStoredData();
-            data.push({
+            const data = loadData();
+            data.sessions.push({
                 id: Date.now(),
-                materia,
-                status,
-                horas
+                subject,
+                questions,
+                hits,
+                minutes
             });
 
-            saveStoredData(data);
-            document.getElementById('studyForm').reset();
+            saveData(data);
+            e.target.reset();
         }
 
-        function deleteTopic(id) {
-            let data = getStoredData();
-            data = data.filter(item => item.id !== id);
-            saveStoredData(data);
+        // Gerenciamento de Tarefas
+        function handleAddTask(e) {
+            e.preventDefault();
+            const input = document.getElementById('inputNewTask');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const data = loadData();
+            data.tasks.push({ id: Date.now(), text, done: false });
+            saveData(data);
+            input.value = '';
         }
 
-        function clearAllData() {
-            if (confirm("Tem certeza que deseja apagar todos os registros de estudos?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                render();
+        function toggleTask(id) {
+            const data = loadData();
+            const task = data.tasks.find(t => t.id === id);
+            if (task) {
+                task.done = !task.done;
+                saveData(data);
             }
         }
 
-        // Exportar Dados para Arquivo JSON
-        function exportData() {
-            const data = getStoredData();
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "backup_estudos_mpmg.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+        function deleteTask(id) {
+            const data = loadData();
+            data.tasks = data.tasks.filter(t => t.id !== id);
+            saveData(data);
         }
 
-        // Importar Arquivo JSON (Funciona em PC e Smartphone)
-        function importData(event) {
-            const fileReader = new FileReader();
-            const file = event.target.files[0];
+        // Exportar Backup JSON
+        function exportData() {
+            const data = loadData();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const anchor = document.createElement('a');
+            anchor.setAttribute("href", dataStr);
+            anchor.setAttribute("download", "meu_caminho_mpmg_backup.json");
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+        }
 
+        // Importar Backup JSON (Compatível com Smartphone Android/iOS e PC)
+        function importData(e) {
+            const file = e.target.files[0];
             if (!file) return;
 
-            fileReader.onload = function(e) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
                 try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (Array.isArray(importedData)) {
-                        saveStoredData(importedData);
+                    const imported = JSON.parse(event.target.result);
+                    if (imported && (imported.sessions || imported.tasks)) {
+                        saveData(imported);
                         alert("Backup importado com sucesso!");
                     } else {
-                        alert("Formato de arquivo inválido!");
+                        alert("Arquivo JSON inválido.");
                     }
                 } catch (err) {
-                    alert("Erro ao ler o arquivo JSON.");
+                    alert("Erro ao ler o arquivo de backup.");
                 }
             };
-
-            fileReader.readAsText(file);
+            reader.readAsText(file);
         }
 
         function escapeHtml(text) {
@@ -391,8 +883,8 @@
             });
         }
 
-        // Renderiza na inicialização
-        render();
+        // Inicialização
+        renderApp();
     </script>
 </body>
 </html>
